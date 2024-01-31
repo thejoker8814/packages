@@ -60,7 +60,7 @@ handle_makestep() {
 }
 
 handle_nts() {
-	local cfg=$1 threshold limit
+	local cfg=$1 rtccheck systemcerts trustedcerts
 
 	config_get_bool rtccheck "$cfg" rtccheck 0
 	config_get_bool systemcerts "$cfg" systemcerts 1
