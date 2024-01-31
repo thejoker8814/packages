@@ -60,15 +60,17 @@ handle_makestep() {
 }
 
 handle_nts() {
-	local cfg=$1 rtccheck systemcerts trustedcerts
+	local cfg=$1 rtccheck systemcerts trustedcerts authselectmode
 
 	config_get_bool rtccheck "$cfg" rtccheck 0
 	config_get_bool systemcerts "$cfg" systemcerts 1
 	config_get trustedcerts "$cfg" trustedcerts
+	config_get authselectmode "$cfg" authselectmode
 	# Disable certificate time checks if no RTC is present
 	[ "$rtccheck" = "1" ] && ! [ -c $RTCDEVICE ] && echo nocerttimecheck 1
 	[ "$systemcerts" = "0" ] && echo nosystemcert
 	[ -n "$trustedcerts" ] && echo ntstrustedcerts "$trustedcerts"
+	[ -n "$authselectmode" ] && echo authselectmode "$authselectmode"
 }
 
 start_service() {
