@@ -50,6 +50,14 @@ handle_allow() {
 	fi
 }
 
+handle_main() {
+	local cfg=$1 lockall
+
+	config_get_bool lockall "$cfg" lockall 0
+
+	[ "$lockall" = "1" ] && echo "lock_all"
+}
+
 handle_makestep() {
 	local cfg=$1 threshold limit
 
@@ -96,5 +104,6 @@ start_service() {
 		config_foreach handle_allow allow
 		config_foreach handle_makestep makestep
 		config_foreach handle_nts nts
+		config_foreach handle_main main
 	) > $INCLUDEFILE
 }
